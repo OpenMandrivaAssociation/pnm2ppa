@@ -1,8 +1,8 @@
 Summary:	PNM2PPA GhostScript Print Filter
 Name:		pnm2ppa
 Version:	1.12
-Release:	%mkrel 1
-Group:		System/Kernel and hardware
+Release:	%mkrel 2
+Group:		System/Printing
 License:	GPL
 URL:		http://pnm2ppa.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/pnm2ppa/%{name}-%{version}.tar.gz
