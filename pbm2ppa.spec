@@ -13,7 +13,6 @@ Patch1:		pnm2ppa-mdv_conf.diff
 Patch2:		pbm2ppa-mdv_conf.diff
 Conflicts:	printer-utils = 2007
 Conflicts:	printer-filters = 2007
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 PPA (Printing Performance Architecture) is a closed, proprietary protocol
