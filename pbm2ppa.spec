@@ -3,6 +3,7 @@ Name:		pnm2ppa
 Version:	1.12
 Release:	%mkrel 3
 Group:		System/Printing
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	GPL
 URL:		http://pnm2ppa.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/pnm2ppa/%{name}-%{version}.tar.gz
