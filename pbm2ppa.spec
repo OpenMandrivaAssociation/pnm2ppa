@@ -1,7 +1,7 @@
 Summary:	PNM2PPA GhostScript Print Filter
 Name:		pnm2ppa
 Version:	1.12
-Release:	%mkrel 4
+Release:	%mkrel 5
 Group:		System/Printing
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	GPL
