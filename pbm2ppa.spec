@@ -1,9 +1,8 @@
 Summary:	PNM2PPA GhostScript Print Filter
 Name:		pnm2ppa
 Version:	1.12
-Release:	%mkrel 5
+Release:	%mkrel 6
 Group:		System/Printing
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:	GPL
 URL:		http://pnm2ppa.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/pnm2ppa/%{name}-%{version}.tar.gz
@@ -12,8 +11,10 @@ Source1:	http://fresh.t-systems-sfr.com/linux/src/ppa-0.8.6.tar.gz
 Patch0:		pbm2ppa-20000205.diff
 Patch1:		pnm2ppa-mdv_conf.diff
 Patch2:		pbm2ppa-mdv_conf.diff
+Patch3:		pnm2ppa-1.12-LDFLAGS.diff
 Conflicts:	printer-utils = 2007
 Conflicts:	printer-filters = 2007
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 PPA (Printing Performance Architecture) is a closed, proprietary protocol
@@ -32,9 +33,10 @@ USB-based printers.
 # fix attribs
 find -type f | xargs chmod 644
 
-%patch0 -p0
+%patch0 -p1
 %patch1 -p0
 %patch2 -p0
+%patch3 -p1
 
 # remove "version ERROR" line from pnm2ppa.conf
 perl -n -i -e 'if ( !m/^\s*version\s*0\s*(|\#.*)$/ ) { print "$_";}' pnm2ppa-*/pnm2ppa.conf
@@ -77,9 +79,9 @@ EOF
 
 %build
 
-%make RPM_OPT_FLAGS="%{optflags}"
+%make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
-%make -C pbm2ppa-* RPM_OPT_FLAGS="%{optflags}"
+%make -C pbm2ppa-* RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
 rm -rf %{buildroot}
