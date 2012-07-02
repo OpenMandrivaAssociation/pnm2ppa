@@ -1,7 +1,7 @@
 Summary:	PNM2PPA GhostScript Print Filter
 Name:		pnm2ppa
-Version:	1.12
-Release:	%mkrel 10
+Version:	1.13
+Release:	1
 Group:		System/Printing
 License:	GPL
 URL:		http://pnm2ppa.sourceforge.net/
@@ -14,7 +14,6 @@ Patch2:		pbm2ppa-mdv_conf.diff
 Patch3:		pnm2ppa-1.12-LDFLAGS.diff
 Conflicts:	printer-utils = 2007
 Conflicts:	printer-filters = 2007
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 PPA (Printing Performance Architecture) is a closed, proprietary protocol
@@ -34,9 +33,11 @@ USB-based printers.
 find -type f | xargs chmod 644
 
 %patch0 -p1
-%patch1 -p0
+#%patch1 -p0
 %patch2 -p0
-%patch3 -p1
+#%patch3 -p1
+
+chmod +x configure
 
 # remove "version ERROR" line from pnm2ppa.conf
 perl -n -i -e 'if ( !m/^\s*version\s*0\s*(|\#.*)$/ ) { print "$_";}' pnm2ppa-*/pnm2ppa.conf
@@ -78,13 +79,13 @@ appropriate modes as soon as they are created.
 EOF
 
 %build
+%configure2_5x
 
 %make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %make -C pbm2ppa-* RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
-rm -rf %{buildroot}
 
 install -d %{buildroot}%{_sysconfdir}
 install -d %{buildroot}%{_bindir}
@@ -103,9 +104,6 @@ install -m 0644 pbm2ppa-*/pbm2ppa.1 %{buildroot}%{_mandir}/man1/
 for i in CALIBRATION CREDITS INSTALL INSTALL-MORE README; do
     cp pbm2ppa-*/$i $i.pbm2ppa
 done
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(0644,root,root,0755)
