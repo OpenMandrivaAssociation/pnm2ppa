@@ -1,0 +1,9 @@
+--- pbm2ppa-0.8.6/Makefile	2007-08-13 16:07:01.000000000 +0200
++++ pbm2ppa-0.8.6/Makefile.oden	2007-08-13 16:16:06.000000000 +0200
+@@ -1,5 +1,5 @@
+ CC=gcc
+-CFLAGS=-Wall -O2 
++CFLAGS=$(RPM_OPT_FLAGS)
+ LDFLAGS=
+ PRINTER=HP720
+ 
