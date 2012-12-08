@@ -1,7 +1,7 @@
 Summary:	PNM2PPA GhostScript Print Filter
 Name:		pnm2ppa
-Version:	1.13
-Release:	1
+Version:	1.12
+Release:	%mkrel 11
 Group:		System/Printing
 License:	GPL
 URL:		http://pnm2ppa.sourceforge.net/
@@ -14,6 +14,7 @@ Patch2:		pbm2ppa-mdv_conf.diff
 Patch3:		pnm2ppa-1.12-LDFLAGS.diff
 Conflicts:	printer-utils = 2007
 Conflicts:	printer-filters = 2007
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 PPA (Printing Performance Architecture) is a closed, proprietary protocol
@@ -33,11 +34,9 @@ USB-based printers.
 find -type f | xargs chmod 644
 
 %patch0 -p1
-#%patch1 -p0
+%patch1 -p0
 %patch2 -p0
-#%patch3 -p1
-
-chmod +x configure
+%patch3 -p1
 
 # remove "version ERROR" line from pnm2ppa.conf
 perl -n -i -e 'if ( !m/^\s*version\s*0\s*(|\#.*)$/ ) { print "$_";}' pnm2ppa-*/pnm2ppa.conf
@@ -79,13 +78,13 @@ appropriate modes as soon as they are created.
 EOF
 
 %build
-%configure2_5x
 
 %make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %make -C pbm2ppa-* RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_sysconfdir}
 install -d %{buildroot}%{_bindir}
@@ -105,6 +104,9 @@ for i in CALIBRATION CREDITS INSTALL INSTALL-MORE README; do
     cp pbm2ppa-*/$i $i.pbm2ppa
 done
 
+%clean
+rm -rf %{buildroot}
+
 %files
 %defattr(0644,root,root,0755)
 %doc Changelog README.calibration README.security test.ps testpage-a4.ps testpage.ps
@@ -120,3 +122,55 @@ done
 %attr(0755,root,root) %{_bindir}/test_ppa
 %attr(0644,root,root) %{_mandir}/man1/pnm2ppa.1*
 %attr(0644,root,root) %{_mandir}/man1/pbm2ppa.1*
+
+
+%changelog
+* Thu May 05 2011 Oden Eriksson <oeriksson@mandriva.com> 1.12-10mdv2011.0
++ Revision: 667794
+- mass rebuild
+
+* Fri Dec 03 2010 Oden Eriksson <oeriksson@mandriva.com> 1.12-9mdv2011.0
++ Revision: 607186
+- rebuild
+
+* Sun Mar 14 2010 Oden Eriksson <oeriksson@mandriva.com> 1.12-8mdv2010.1
++ Revision: 519054
+- rebuild
+
+* Thu Sep 03 2009 Christophe Fergeau <cfergeau@mandriva.com> 1.12-7mdv2010.0
++ Revision: 426734
+- rebuild
+
+* Thu Dec 25 2008 Oden Eriksson <oeriksson@mandriva.com> 1.12-6mdv2009.1
++ Revision: 319070
+- rediffed one fuzzy patch
+- use %%ldflags
+
+* Wed Jun 18 2008 Thierry Vignaud <tv@mandriva.org> 1.12-5mdv2009.0
++ Revision: 225019
+- rebuild
+
+* Tue Mar 04 2008 Oden Eriksson <oeriksson@mandriva.com> 1.12-4mdv2008.1
++ Revision: 179239
+- rebuild
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - fix no-buildroot-tag
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Thu Aug 30 2007 Oden Eriksson <oeriksson@mandriva.com> 1.12-3mdv2008.0
++ Revision: 75354
+- fix deps (pixel)
+
+* Thu Aug 16 2007 Oden Eriksson <oeriksson@mandriva.com> 1.12-2mdv2008.0
++ Revision: 64173
+- use the new System/Printing RPM GROUP
+
+* Mon Aug 13 2007 Oden Eriksson <oeriksson@mandriva.com> 1.12-1mdv2008.0
++ Revision: 62603
+- Import pnm2ppa
+
+
+
+* Mon Aug 13 2007 Oden Eriksson <oeriksson@mandriva.com> 1.12-1mdv2008.0
+- initial Mandriva package
