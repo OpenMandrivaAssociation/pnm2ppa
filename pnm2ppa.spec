@@ -9,7 +9,9 @@ Source0:	http://downloads.sourceforge.net/pnm2ppa/%{name}-%{version}.tar.gz
 #Source1:	http://www.httptech.com/ppa/files/ppa-0.8.6.tar.bz2
 Source1:	http://fresh.t-systems-sfr.com/linux/src/ppa-0.8.6.tar.gz
 Patch0:		pbm2ppa-20000205.diff
+Patch1:		pnm2ppa-1.13-fix_signedness.diff
 Patch2:		pbm2ppa-mdv_conf.diff
+Patch3:		pbm2ppa-LDFLAGS.diff
 
 %description
 PPA (Printing Performance Architecture) is a closed, proprietary protocol
@@ -23,7 +25,10 @@ USB-based printers.
 
 %prep
 %setup -q -a1
-%apply_patches
+%patch0 -p1
+%patch1 -p1
+%patch2 -p0
+%patch3 -p1
 
 # fix attribs
 find -type f | xargs chmod 644
@@ -69,18 +74,18 @@ appropriate modes as soon as they are created.
 EOF
 
 %build
-%configure2_5x
+%configure
 
-%make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
+%make_build RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
-%make -C pbm2ppa-* RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
+%make_build -C pbm2ppa-* RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
 install -d %{buildroot}%{_sysconfdir}
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_mandir}/man1
 
-%makeinstall_std
+%make_install
 
 install -m 0755 utils/Linux/detect_ppa %{buildroot}%{_bindir}/
 install -m 0755 utils/Linux/test_ppa %{buildroot}%{_bindir}/

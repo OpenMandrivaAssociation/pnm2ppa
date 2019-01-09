@@ -1,0 +1,23 @@
+diff -Naur pnm2ppa-1.12/pbm2ppa-0.8.6/Makefile pnm2ppa-1.12.oden/pbm2ppa-0.8.6/Makefile
+--- pnm2ppa-1.12/pbm2ppa-0.8.6/Makefile	2008-12-25 21:16:01.000000000 +0100
++++ pnm2ppa-1.12.oden/pbm2ppa-0.8.6/Makefile	2008-12-25 21:17:11.000000000 +0100
+@@ -1,5 +1,6 @@
+ CC=gcc
+ CFLAGS=$(RPM_OPT_FLAGS)
++LIBS=-lm
+ LDFLAGS=
+ PRINTER=HP720
+ 
+@@ -20,10 +21,10 @@
+ 	rm -f *.o *~ pbmtpg pbm2ppa 
+ 
+ pbm2ppa: pbm2ppa.o ppa.o pbm.o cutswath.o
+-	$(CC) $(LDFLAGS) -o pbm2ppa pbm2ppa.o ppa.o pbm.o cutswath.o
++	$(CC) $(CFLAGS) $(LDFLAGS) -o pbm2ppa pbm2ppa.o ppa.o pbm.o cutswath.o
+ 
+ pbmtpg: pbmtpg.o
+-	$(CC) $(CFLAGS) -o pbmtpg pbmtpg.o -lm
++	$(CC) $(CFLAGS) $(LDFLAGS) -o pbmtpg pbmtpg.o $(LIBS)
+ 
+ .c.o: $*.c ppa.h pbm.h
+ 	$(CC) $(CFLAGS) -DDEFAULT_PRINTER=$(PRINTER)  -c $*.c
