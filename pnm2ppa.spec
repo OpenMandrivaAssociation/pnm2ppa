@@ -1,3 +1,5 @@
+%global optflags %{optflags} -fcommon
+
 Summary:	PNM2PPA GhostScript Print Filter
 Name:		pnm2ppa
 Version:	1.13
