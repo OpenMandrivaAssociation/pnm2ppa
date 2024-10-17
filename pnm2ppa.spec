@@ -6,7 +6,7 @@ Version:	1.13
 Release:	16
 Group:		System/Printing
 License:	GPLv2
-Url:		http://pnm2ppa.sourceforge.net/
+Url:		https://pnm2ppa.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/pnm2ppa/%{name}-%{version}.tar.gz
 #Source1:	http://www.httptech.com/ppa/files/ppa-0.8.6.tar.bz2
 Source1:	http://fresh.t-systems-sfr.com/linux/src/ppa-0.8.6.tar.gz
