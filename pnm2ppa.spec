@@ -15,6 +15,11 @@ Patch1:		pnm2ppa-1.13-fix_signedness.diff
 Patch2:		pbm2ppa-mdv_conf.diff
 Patch3:		pbm2ppa-LDFLAGS.diff
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 %description
 PPA (Printing Performance Architecture) is a closed, proprietary protocol
 developed by Hewlett Packard for a short-lived series of DeskJet printers. In
